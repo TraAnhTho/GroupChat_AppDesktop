@@ -2,7 +2,7 @@ package Model;
 
 import com.mysql.cj.xdevapi.Type;
 
-public class groupChat {
+public class groupChat extends Chat{
 	private int ID;
 	
 	public String groupID;

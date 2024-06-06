@@ -2,7 +2,7 @@ package Model;
 
 import java.sql.Timestamp;
 
-public class Message {
+public abstract class Message {
 	public int typeMsg;
 	public int typeImage;
 	public int typeVoice;
@@ -47,9 +47,6 @@ public class Message {
 	public void setTypeFile(int typeFile) {
 		this.typeFile = typeFile;
 	}
+	 public abstract void display();
 	
-	public Abstract display() {
-		
-	}
-
 }

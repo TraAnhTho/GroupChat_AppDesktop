@@ -1,6 +1,6 @@
 package Model;
 
-public class individualChat {
+public class individualChat extends Chat{
 	public String peerID;
 	protected String status;
 	

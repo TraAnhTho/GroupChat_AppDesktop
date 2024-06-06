@@ -5,9 +5,10 @@ public class chatHistory {
 	public String sender;
 
 	public objMsg[] getMsgList() {
-		
+		return null;
 	}
-	public void  addMsg(objMsg[]) {
+	public void  addMsg(objMsg[] objmsg) {
 		
 	}
 }
+
