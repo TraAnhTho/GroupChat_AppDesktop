@@ -33,7 +33,7 @@ public class FButton extends JButton {
 	private int strokeWidth;
 
 	public FButton() {
-		fillOriginal = new Color(175, 215, 130);
+		fillOriginal = new Color(255,182,193);
 		fillOver = new Color(41, 128, 185);
 		fillClick = new Color(10, 75, 124);
 		lineOriginal = new Color(236, 240, 241);

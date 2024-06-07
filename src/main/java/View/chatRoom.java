@@ -18,7 +18,7 @@ public class chatRoom extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField mesageTextField;
 
 	/**
 	 * Launch the application.
@@ -53,55 +53,55 @@ public class chatRoom extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("New label: .....");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel.setForeground(new Color(255, 105, 180));
-		lblNewLabel.setBounds(10, 11, 401, 54);
+		JLabel lbl_idRoom = new JLabel("Room: ");
+		lbl_idRoom.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lbl_idRoom.setHorizontalAlignment(SwingConstants.LEFT);
+		lbl_idRoom.setForeground(new Color(255, 105, 180));
+		lbl_idRoom.setBounds(10, 11, 401, 54);
+		panel.add(lbl_idRoom);
+		
+		JLabel lbl_idUsser = new JLabel("User123456789");
+		lbl_idUsser.setHorizontalAlignment(SwingConstants.RIGHT);
+		lbl_idUsser.setIcon(new ImageIcon(chatRoom.class.getResource("/img/icons8-user-48.png")));
+		lbl_idUsser.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lbl_idUsser.setForeground(new Color(255, 105, 180));
+		lbl_idUsser.setBounds(401, 11, 253, 54);
+		panel.add(lbl_idUsser);
+		
+		JTextArea chatTextArea = new JTextArea();
+		chatTextArea.setBounds(10, 76, 441, 474);
+		panel.add(chatTextArea);
+		
+		JTextArea listActiveTextArea = new JTextArea();
+		listActiveTextArea.setBounds(461, 146, 193, 404);
+		panel.add(listActiveTextArea);
+		
+		JLabel lblNewLabel = new JLabel("Đang hoạt động");
+		lblNewLabel.setIcon(new ImageIcon(chatRoom.class.getResource("/img/icons8-dot-24.png")));
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setFont(new Font("Tahoma", Font.ITALIC, 20));
+		lblNewLabel.setVerticalAlignment(SwingConstants.BOTTOM);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(461, 76, 193, 59);
 		panel.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_1.setIcon(new ImageIcon(chatRoom.class.getResource("/img/icons8-user-48.png")));
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNewLabel_1.setForeground(new Color(255, 105, 180));
-		lblNewLabel_1.setBounds(421, 11, 233, 54);
-		panel.add(lblNewLabel_1);
+		mesageTextField = new JTextField();
+		mesageTextField.setBounds(55, 561, 505, 43);
+		panel.add(mesageTextField);
+		mesageTextField.setColumns(10);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(10, 76, 401, 474);
-		panel.add(textArea);
+		JLabel fileBtn = new JLabel("");
+		fileBtn.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		fileBtn.setHorizontalAlignment(SwingConstants.CENTER);
+		fileBtn.setIcon(new ImageIcon(chatRoom.class.getResource("/img/icons8-attach-24.png")));
+		fileBtn.setBounds(10, 563, 35, 41);
+		panel.add(fileBtn);
 		
-		JTextArea textArea_1 = new JTextArea();
-		textArea_1.setBounds(421, 146, 233, 404);
-		panel.add(textArea_1);
-		
-		JLabel lblNewLabel_1_1 = new JLabel("Đang hoạt động");
-		lblNewLabel_1_1.setIcon(new ImageIcon(chatRoom.class.getResource("/img/icons8-dot-24.png")));
-		lblNewLabel_1_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.ITALIC, 20));
-		lblNewLabel_1_1.setVerticalAlignment(SwingConstants.BOTTOM);
-		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1_1.setBounds(421, 76, 233, 54);
-		panel.add(lblNewLabel_1_1);
-		
-		textField = new JTextField();
-		textField.setBounds(55, 561, 505, 43);
-		panel.add(textField);
-		textField.setColumns(10);
-		
-		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setIcon(new ImageIcon(chatRoom.class.getResource("/img/icons8-attach-24.png")));
-		lblNewLabel_2.setBounds(10, 563, 35, 41);
-		panel.add(lblNewLabel_2);
-		
-		JLabel lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_3.setIcon(new ImageIcon(chatRoom.class.getResource("/img/icons8-send-24.png")));
-		lblNewLabel_3.setBounds(576, 561, 78, 43);
-		panel.add(lblNewLabel_3);
+		JLabel sendMessageBtn = new JLabel("");
+		sendMessageBtn.setHorizontalAlignment(SwingConstants.LEFT);
+		sendMessageBtn.setIcon(new ImageIcon(chatRoom.class.getResource("/img/icons8-send-24.png")));
+		sendMessageBtn.setBounds(576, 561, 78, 43);
+		panel.add(sendMessageBtn);
 		
 		
 		

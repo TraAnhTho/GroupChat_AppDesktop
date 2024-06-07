@@ -19,7 +19,7 @@ public class FTextField extends JTextField {
 
 	public FTextField() {
 		fillColor = new Color(236, 240, 241);
-		lineColor = new Color(96, 95, 95, 221);
+		lineColor = new Color(255,182,193);
 		strokeWidth = 2;
 		setOpaque(false);
 		setBorder(BorderFactory.createEmptyBorder(2, 10, 2, 10));
