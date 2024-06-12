@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence
+        version="2.1"
+        xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+        xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://xmlns.jcp.org/xml/ns/persistence
+http://xmlns.jcp.org/xml/ns/persistence_2_1.xsd">
+    <persistence-unit name="chatroom" transaction-type="RESOURCE_LOCAL">
+    	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+      
+        <properties>
+            <property name="javax.persistence.schema-generation.database.action"
+                    value="drop-and-create"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name ="hibernate.show_sql" value = "true" />
+            <property name="hibernate.use_sql_comments" value="true"/>
+            <property name="org.hibernate.SQL" value="debug"/>
+            <property name="org.hibernate.type.descriptor.sql.BasicBinder" value="debug"/>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/chatroom" />
+            <property name="javax.persistence.jdbc.user" value="TraAnhTho" />
+            <property name="javax.persistence.jdbc.password" value="081105" />
+        </properties>
+    </persistence-unit>
+</persistence>
