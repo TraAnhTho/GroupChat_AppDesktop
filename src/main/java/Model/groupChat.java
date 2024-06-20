@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 @Table(name = "groupChat")
 public class groupChat extends Chat {
 	@Id // khóa chính
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;
 	@Column(name = "groupID")
 	public String groupID;

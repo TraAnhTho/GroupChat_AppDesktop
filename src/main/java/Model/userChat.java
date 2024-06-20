@@ -13,7 +13,8 @@ import jakarta.persistence.Table;
 @Table(name = "userChat")
 public class userChat {
 	@Id // khóa chính
-	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;
 	@Column(name = "userName")
 	public String userName;
@@ -31,6 +32,125 @@ public class userChat {
 	public String email;
 	@Column(name = "phoneNumber")
 	public int phoneNumber;
+	
+	
+
+//	public userChat(String userName, String password, String firstName, String lastName, int phoneNumber) {
+//		super();
+//		this.userName = userName;
+//		this.password = password;
+//		this.firstName = firstName;
+//		this.lastName = lastName;
+//		this.birthday = birthday;
+//		this.status = status;
+//		this.email = email;
+//		this.phoneNumber = phoneNumber;
+//	}
+	
+
+	public userChat(String userName, String password, Date birthday, String email, int phoneNumber) {
+		this.userName = userName;
+		this.password = password;
+		this.birthday = birthday;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+	}
+
+
+	public userChat() {
+		super();
+	}
+	
+
+	public int getID() {
+		return ID;
+	}
+
+
+	public void setID(int iD) {
+		ID = iD;
+	}
+
+
+	public String getUserName() {
+		return userName;
+	}
+
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+
+	public String getLastName() {
+		return lastName;
+	}
+
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+
+
+	public String getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+
+	public int getPhoneNumber() {
+		return phoneNumber;
+	}
+
+
+	public void setPhoneNumber(int phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
 
 	public void createAccount() {
 

@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -17,6 +18,10 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+
+import DAO.GroupDAO;
+import Model.groupChat;
+
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -37,7 +42,7 @@ public class InterfaceMain extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					chatRoom frame = new chatRoom();
+					InterfaceMain frame = new InterfaceMain();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -79,7 +84,7 @@ public class InterfaceMain extends JFrame {
 		panel.add(lbl_idUsser);
 
 		JTextArea listActiveTextArea = new JTextArea();
-		listActiveTextArea.setBounds(439, 146, 215, 404);
+		listActiveTextArea.setBounds(439, 146, 215, 411);
 		panel.add(listActiveTextArea);
 
 		JLabel lblNewLabel = new JLabel("Đang hoạt động");
@@ -122,12 +127,11 @@ public class InterfaceMain extends JFrame {
 	}
 
 	public void LoadDBDataJTableRoom() throws Exception {
+		ArrayList<groupChat> groups = GroupDAO.getInstance().loadData();
 
-//        String sql="select STT,`MaSP`, TenSP, GiaSP from sanpham"
-//        		+ " WHERE TenSP LIKE '%"+timkiem.getText()+"%'OR MaSP LIKE'%"+timkiem.getText()+"%'";
-//        ResultSet rs=conn.createStatement().executeQuery(sql);
-
-		Object[] row = { null };
-		dtmTableRoom.addRow(row);
+		for (groupChat group : groups) {
+            Object[] row = {group.getGroupName()};
+            dtmTableRoom.addRow(row);}
+		
 	}
 }

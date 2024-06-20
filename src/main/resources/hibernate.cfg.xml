@@ -6,7 +6,7 @@
 			com.mysql.cj.jdbc.Driver</property>
 		<property name="hibernate.connection.url">
 			jdbc:mysql://localhost:3306/chatroom</property>
-		<property name="hibernate.connection.username">traanhtho</property>
+		<property name="hibernate.connection.username">TraAnhTho</property>
 		<property name="hibernate.connection.password">081105</property>
 
 		<!-- JDBC connection pool settings -->
