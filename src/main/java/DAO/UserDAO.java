@@ -1,10 +1,17 @@
 package DAO;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 
 import org.hibernate.mapping.List;
 
-import Model.userChat;
+import Model.UserModel;
+import View.InterfaceMain;
+import View.chatRoom;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -16,13 +23,16 @@ public class UserDAO {
 //		loadData();
 //	}
 
-	public void create(userChat u) {
+	public static UserDAO getInstance() {
+		return new UserDAO();
+	}
+	public void create(UserModel u) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("chatroom");
 		EntityManager em = emf.createEntityManager();
 
 		try {
 			em.getTransaction().begin();
-			userChat userchat = new userChat(u.getUserName(), u.getPassword(), u.getBirthday(), u.getEmail(), u.getPhoneNumber());
+			UserModel userchat = new UserModel(u.getUserName(), u.getPassword(), u.getBirthday(), u.getEmail(), u.getPhoneNumber());
 
 			em.persist(userchat);
 			em.getTransaction().commit();
@@ -34,13 +44,13 @@ public class UserDAO {
 		em.close();
 	}
 
-	public void delete(userChat u) {
+	public void delete(UserModel u) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("chatroom");
 		EntityManager em = emf.createEntityManager();
 
 		try {
 			em.getTransaction().begin();
-			userChat userchat = new userChat( u.getUserName(), u.getPassword(), u.getBirthday(), u.getEmail(), u.getPhoneNumber());
+			UserModel userchat = new UserModel( u.getUserName(), u.getPassword(), u.getBirthday(), u.getEmail(), u.getPhoneNumber());
 
 			em.remove(userchat);
 			em.getTransaction().commit();
@@ -53,13 +63,13 @@ public class UserDAO {
 	}
 	
 
-	public void edit(userChat u) {
+	public void edit(UserModel u) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("chatroom");
         EntityManager em = emf.createEntityManager();
 
         try {
             em.getTransaction().begin();
-            userChat existingUserChat = em.find(userChat.class, u.getUserName());
+            UserModel existingUserChat = em.find(UserModel.class, u.getUserName());
             if (existingUserChat != null) {
                 existingUserChat.setUserName(u.getUserName());
                 existingUserChat.setPassword(u.getPassword());
@@ -83,15 +93,15 @@ public class UserDAO {
         }
     }
 
-    public ArrayList<userChat> loadData() {
+    public ArrayList<UserModel> loadData() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("chatroom");
         EntityManager em = emf.createEntityManager();
-        ArrayList<userChat> list = new ArrayList<userChat>();
+        ArrayList<UserModel> list = new ArrayList<UserModel>();
         try {
-            String jpql = "SELECT u FROM userChat u";
-            TypedQuery<userChat> query = em.createQuery(jpql, userChat.class);
-            list = (ArrayList<userChat>) query.getResultList();
-            for (userChat user : list) {
+            String jpql = "SELECT u FROM UserModel u";
+            TypedQuery<UserModel> query = em.createQuery(jpql, UserModel.class);
+            list = (ArrayList<UserModel>) query.getResultList();
+            for (UserModel user : list) {
                 System.out.println("UserId: " + user.getUserName());
                 System.out.println("UserName: " + user.getUserName());
                 System.out.println("Password: " + user.getPassword());
@@ -101,6 +111,39 @@ public class UserDAO {
                 System.out.println("---------------");
             }
         } catch (Exception e) {
+            System.out.println("Lấy dữ liệu thất bại userchat");
+            e.printStackTrace();
+        } finally {
+            em.close();
+            emf.close();
+        }
+		return list;
+    }
+    
+    public ArrayList<UserModel> DangNhap(String id, String mk) {
+		// lấy all user
+    	EntityManagerFactory emf = Persistence.createEntityManagerFactory("chatroom");
+        EntityManager em = emf.createEntityManager();
+		ArrayList<UserModel> list = new ArrayList<UserModel>();
+		try {
+			String jpql = "SELECT u FROM UserModel u WHERE u.userName = :userName AND u.password = :password";
+            TypedQuery<UserModel> query = em.createQuery(jpql, UserModel.class);
+			query.setParameter("userName", id);
+			query.setParameter("password", mk);
+            list = (ArrayList<UserModel>) query.getResultList();
+            
+            if (!list.isEmpty()) {
+				JOptionPane.showMessageDialog(new InterfaceMain(id), "Đăng nhập thành công!!!");
+				System.out.println("success");
+				em.close();
+
+			} else {
+				JOptionPane.showMessageDialog(null, "Tài khoản KHÔNG tồn tại!!!");
+				System.out.println("Tài khoản chưa tồn tại!!!");
+				em.close();
+			}
+
+			 } catch (Exception e) {
             System.out.println("Lấy dữ liệu thất bại userchat");
             e.printStackTrace();
         } finally {

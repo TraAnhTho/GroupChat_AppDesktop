@@ -10,12 +10,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "userChat")
-public class userChat {
-	@Id // khóa chính
+@Table(name = "user")
+public class UserModel {
+	@Id
 //	@GeneratedValue(strategy = GenerationType.AUTO)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int ID;
+	private int id;
 	@Column(name = "userName")
 	public String userName;
 	@Column(name = "password")
@@ -48,7 +48,7 @@ public class userChat {
 //	}
 	
 
-	public userChat(String userName, String password, Date birthday, String email, int phoneNumber) {
+	public UserModel(String userName, String password, Date birthday, String email, int phoneNumber) {
 		this.userName = userName;
 		this.password = password;
 		this.birthday = birthday;
@@ -57,18 +57,18 @@ public class userChat {
 	}
 
 
-	public userChat() {
+	public UserModel() {
 		super();
 	}
 	
 
-	public int getID() {
-		return ID;
+	public int getid() {
+		return id;
 	}
 
 
-	public void setID(int iD) {
-		ID = iD;
+	public void setid(int id) {
+		id = id;
 	}
 
 

@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Model.SocketClient;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
@@ -22,6 +25,11 @@ public class chatRoom extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField mesageTextField;
+	static String idUser;
+	static String room  = "trivo";
+    SocketClient client = new SocketClient();
+
+
 
 	/**
 	 * Launch the application.
@@ -30,7 +38,7 @@ public class chatRoom extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					chatRoom frame = new chatRoom();
+					chatRoom frame = new chatRoom(idUser,room);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -42,7 +50,8 @@ public class chatRoom extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public chatRoom() {
+	public chatRoom(String idUser, String room) {
+		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 678, 678);
 		contentPane = new JPanel();
@@ -56,14 +65,14 @@ public class chatRoom extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lbl_idRoom = new JLabel("Room: ");
+		JLabel lbl_idRoom = new JLabel("Room: "+room);
 		lbl_idRoom.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lbl_idRoom.setHorizontalAlignment(SwingConstants.LEFT);
 		lbl_idRoom.setForeground(new Color(255, 105, 180));
 		lbl_idRoom.setBounds(10, 11, 401, 54);
 		panel.add(lbl_idRoom);
 		
-		JLabel lbl_idUsser = new JLabel("User123456789");
+		JLabel lbl_idUsser = new JLabel(" "+idUser);
 		lbl_idUsser.setHorizontalAlignment(SwingConstants.RIGHT);
 		lbl_idUsser.setIcon(new ImageIcon(chatRoom.class.getResource("/img/icons8-user-48.png")));
 		lbl_idUsser.setFont(new Font("Tahoma", Font.BOLD, 20));

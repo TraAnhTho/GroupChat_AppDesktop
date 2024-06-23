@@ -3,7 +3,7 @@ package DAO;
 import java.util.ArrayList;
 
 import Model.groupChat;
-import Model.userChat;
+import Model.UserModel;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -104,7 +104,7 @@ public class GroupDAO {
     }
 
     // Lấy dữ liệu từ bảng khi groupID bằng dữ liệu nhập
-    public ArrayList<groupChat> loadData() {
+    public ArrayList<groupChat> loadDataID(String id) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("chatroom");
         EntityManager em = emf.createEntityManager();
         ArrayList<groupChat> list = new ArrayList<groupChat>();
@@ -113,6 +113,7 @@ public class GroupDAO {
         try {
         	String jpql = "SELECT gc FROM groupChat gc WHERE gc.groupID = :groupID";
             TypedQuery<groupChat> query = em.createQuery(jpql, groupChat.class);
+            query.setParameter("groupID", id);
             list = (ArrayList<groupChat>) query.getResultList();
 
             for (groupChat chat : list) {
@@ -130,4 +131,31 @@ public class GroupDAO {
         }
         return list;
     }
+    
+public ArrayList<groupChat> loadData() {
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("chatroom");
+    EntityManager em = emf.createEntityManager();
+    ArrayList<groupChat> list = new ArrayList<groupChat>();
+
+
+    try {
+    	String jpql = "SELECT gc FROM groupChat gc";
+        TypedQuery<groupChat> query = em.createQuery(jpql, groupChat.class);
+        list = (ArrayList<groupChat>) query.getResultList();
+
+        for (groupChat chat : list) {
+            System.out.println("Group ID: " + chat.getGroupID());
+            System.out.println("Group Name: " + chat.getGroupName());
+            System.out.println("Message Type: " + chat.getMsgType());
+            System.out.println("Attribute: " + chat.getAttribute());
+        }
+    } catch (Exception e) {
+        System.out.println("Lấy dữ liệu thất bại groupchat");
+        e.printStackTrace();
+    } finally {
+        em.close();
+        emf.close();
+    }
+    return list;
+}
 }

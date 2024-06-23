@@ -26,6 +26,8 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class InterfaceMain extends JFrame {
 
@@ -34,6 +36,8 @@ public class InterfaceMain extends JFrame {
 	private DefaultTableModel dtmTableRoom;
 	private JTable tableRoom;
 	private Container panel;
+	static String idUser;
+
 
 	/**
 	 * Launch the application.
@@ -42,7 +46,7 @@ public class InterfaceMain extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					InterfaceMain frame = new InterfaceMain();
+					InterfaceMain frame = new InterfaceMain(idUser);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,7 +58,8 @@ public class InterfaceMain extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public InterfaceMain() {
+	public InterfaceMain(String idUser) {
+		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 678, 678);
 		contentPane = new JPanel();
@@ -75,7 +80,7 @@ public class InterfaceMain extends JFrame {
 		lbl_idRoom.setBounds(35, 95, 357, 40);
 		panel.add(lbl_idRoom);
 
-		JLabel lbl_idUsser = new JLabel("User123456789");
+		JLabel lbl_idUsser = new JLabel(" "+idUser);
 		lbl_idUsser.setHorizontalAlignment(SwingConstants.RIGHT);
 		lbl_idUsser.setIcon(new ImageIcon(chatRoom.class.getResource("/img/icons8-user-48.png")));
 		lbl_idUsser.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -120,6 +125,12 @@ public class InterfaceMain extends JFrame {
 		}
 
 		JButton joinRoomBtn = new JButton("Join");
+		joinRoomBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DefaultTableModel model_table = (DefaultTableModel) table.getModel();
+				int i_row = table.getSelectedRow();
+			}
+		});
 		joinRoomBtn.setFont(new Font("Tahoma", Font.BOLD, 20));
 		joinRoomBtn.setBounds(268, 569, 124, 40);
 		panel.add(joinRoomBtn);
