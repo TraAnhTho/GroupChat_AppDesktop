@@ -26,7 +26,7 @@ public class chatRoom extends JFrame {
 	private JPanel contentPane;
 	private JTextField mesageTextField;
 	static String idUser;
-	static String room  = "trivo";
+	static String room;
     SocketClient client = new SocketClient();
 
 
