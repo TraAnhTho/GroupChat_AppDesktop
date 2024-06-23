@@ -29,11 +29,13 @@ import Model.groupChat;
 import design.FButton;
 
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.net.ServerSocket;
+import java.net.URL;
 import java.awt.event.ActionEvent;
 
 public class InterfaceMain extends JFrame {
@@ -45,16 +47,15 @@ public class InterfaceMain extends JFrame {
 	private Container panel;
 	private JTextArea listActiveTextArea;
 	static String idUser;
-	
-	 /** Chat List  **/
-    public Vector socketList = new Vector();
-    public Vector clientList = new Vector();
-    /** File Sharing List **/
-    public Vector clientFileSharingUsername = new Vector();
-    public Vector clientFileSharingSocket = new Vector();
-    /** Server **/
-    ServerSocket server;
 
+	/** Chat List **/
+	public Vector socketList = new Vector();
+	public Vector clientList = new Vector();
+	/** File Sharing List **/
+	public Vector clientFileSharingUsername = new Vector();
+	public Vector clientFileSharingSocket = new Vector();
+	/** Server **/
+	ServerSocket server;
 
 	/**
 	 * Launch the application.
@@ -97,7 +98,7 @@ public class InterfaceMain extends JFrame {
 		lbl_idRoom.setBounds(35, 95, 357, 40);
 		panel.add(lbl_idRoom);
 
-		JLabel lbl_idUsser = new JLabel(" "+idUser);
+		JLabel lbl_idUsser = new JLabel(" " + idUser);
 		lbl_idUsser.setHorizontalAlignment(SwingConstants.RIGHT);
 		lbl_idUsser.setIcon(new ImageIcon(chatRoom.class.getResource("/img/icons8-user-48.png")));
 		lbl_idUsser.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -110,7 +111,7 @@ public class InterfaceMain extends JFrame {
 		panel.add(listActiveTextArea);
 
 		JLabel lblNewLabel = new JLabel("Đang hoạt động");
-		lblNewLabel.setIcon(new ImageIcon(chatRoom.class.getResource("/img/icons8-dot-24.png")));
+		lblNewLabel.setIcon(new ImageIcon(InterfaceMain.class.getResource("/img/online.png")));
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setFont(new Font("Tahoma", Font.ITALIC, 20));
 		lblNewLabel.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -145,12 +146,9 @@ public class InterfaceMain extends JFrame {
 		joinRoomBtn.setText("Join");
 		joinRoomBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DefaultTableModel model_table = (DefaultTableModel) tableRoom.getModel();
-				int i_row = tableRoom.getSelectedRow();
-				String roomList = model_table.getValueAt(i_row, 0) + "";
-				System.out.println(roomList);
-				new chatRoom(idUser, roomList);
-				dispose();
+				
+		        connectToServer();
+				
 			}
 		});
 		joinRoomBtn.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -163,81 +161,112 @@ public class InterfaceMain extends JFrame {
 		ArrayList<groupChat> groups = GroupDAO.getInstance().loadData();
 
 		for (groupChat group : groups) {
-            Object[] row = {group.getGroupName()};
-            dtmTableRoom.addRow(row);}
-		
+			Object[] row = { group.getGroupName() };
+			dtmTableRoom.addRow(row);
+		}
+
 	}
-	public void appendMessage(String msg){
-        Date date = new Date();
-        listActiveTextArea.append(sdf.format(date) +": "+ msg +"\n");
-        listActiveTextArea.setCaretPosition(listActiveTextArea.getText().length() - 1);
-    }
-	public void setClientList(String client){
-        try {
-            clientList.add(client);
-            appendMessage("[setClientList]: Được thêm");
-        } catch (Exception e) { appendMessage("[setClientList]: "+ e.getMessage()); }
-    }
 
-    /*
-    Hiển thị danh sách đang online
-*/
-public void showOnLineList(Vector list){
-    try {
-//        listActiveTextArea.setEditable(true);
+	public void appendMessage(String msg) {
+		Date date = new Date();
+		listActiveTextArea.append(sdf.format(date) + ": " + msg + "\n");
+		listActiveTextArea.setCaretPosition(listActiveTextArea.getText().length() - 1);
+	}
+
+	public void setClientList(String client) {
+		try {
+			clientList.add(client);
+			appendMessage("[setClientList]: Được thêm");
+		} catch (Exception e) {
+			appendMessage("[setClientList]: " + e.getMessage());
+		}
+	}
+
+	/*
+	 * Hiển thị danh sách đang online
+	 */
+	public void showOnLineList(Vector list) {
+		try {
+			listActiveTextArea.setEditable(true);
 //        listActiveTextArea.setContentType("text/html");
-//        StringBuilder sb = new StringBuilder();
-//        Iterator it = list.iterator();
-//        sb.append("<html><table>");
-//        while(it.hasNext()){
-//            Object e = it.next();
-//            URL url = getImageFile();
-//            Icon icon = new ImageIcon(this.getClass().getResource("/images/online.png"));
-//            sb.append("<tr><td><b>></b></td><td>").append(e).append("</td></tr>");
-//            System.out.println("Online: "+ e);
-//        }
-//        sb.append("</table></body></html>");
-//        listActiveTextArea.removeAll();
-//        listActiveTextArea.setText(sb.toString());
-//        listActiveTextArea.setEditable(false);
-    } catch (Exception e) {
-        System.out.println(e.getMessage());
-    }
-}
+			StringBuilder sb = new StringBuilder();
+			Iterator it = list.iterator();
+			sb.append("<html><table>");
+			while (it.hasNext()) {
+				Object e = it.next();
+				URL url = getImageFile();
+				ImageIcon icon = new ImageIcon(this.getClass().getResource("/images/online.png"));
+				sb.append("<tr><td><b>></b></td><td>").append(e).append("</td></tr>");
+				System.out.println("Online: " + e);
+			}
+			sb.append("</table></body></html>");
+			listActiveTextArea.removeAll();
+			listActiveTextArea.setText(sb.toString());
+			listActiveTextArea.setEditable(false);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
 
-/*
-  ************************************  Hiển thị danh sách online  *********************************************
-*/
-private void sampleOnlineList(Vector list){
-    listActiveTextArea.setEditable(true);
-    listActiveTextArea.removeAll();
-    listActiveTextArea.setText("");
-    Iterator i = list.iterator();
-    while(i.hasNext()){
-        Object e = i.next();
-        /*  Hiển thị Username Online   */
-        JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        panel.setBackground(Color.white);
+	/*
+	 ************************************ Hiển thị danh sách online *********************************************
+	 */
+	private void sampleOnlineList(Vector list) {
+		listActiveTextArea.setEditable(true);
+		listActiveTextArea.removeAll();
+		listActiveTextArea.setText("");
+		Iterator i = list.iterator();
+		while (i.hasNext()) {
+			Object e = i.next();
+			/* Hiển thị Username Online */
+			JPanel panel = new JPanel();
+			panel.setLayout(new FlowLayout(FlowLayout.LEFT));
+			panel.setBackground(Color.white);
+
+			ImageIcon icon = new ImageIcon(this.getClass().getResource("/images/online.png"));
+			JLabel label = new JLabel(icon);
+			label.setText(" " + e);
+			panel.add(label);
+			int len = listActiveTextArea.getDocument().getLength();
+			listActiveTextArea.setCaretPosition(len);
+			listActiveTextArea.add(panel);
+			/* Append Next Line */
+			sampleAppend();
+		}
+		listActiveTextArea.setEditable(false);
+	}
+
+	private void sampleAppend() {
+		int len = listActiveTextArea.getDocument().getLength();
+		listActiveTextArea.setCaretPosition(len);
+		listActiveTextArea.replaceSelection("\n");
+	}
+
+	public URL getImageFile() {
+		URL url = this.getClass().getResource("/images/online.png");
+		return url;
+	}
+	//kết nói đến sẻver
+	private void connectToServer(){
+		DefaultTableModel model_table = (DefaultTableModel) tableRoom.getModel();
+		int i_row = tableRoom.getSelectedRow();
+		String roomList = model_table.getValueAt(i_row, 0) + "";
+		System.out.println(roomList);
+		
+//                /*  Hiện thị MainForm  */
+                	new chatRoom(idUser, roomList);
+					dispose();
+//                main.initFrame(u, txtHost.getText(), Integer.parseInt(txtPort.getText()));
+                //  kiểm tra nếu như được kết nối
+//                if(InterfaceMain.isConnected()){
+//                	InterfaceMain.setLocationRelativeTo(null);
+//                	InterfaceMain.setVisible(true);
+//                    setVisible(false);
+//            } else {
+//                JOptionPane.showMessageDialog(this, "Tài khoản phải tối đa 15 ký tự bao gồm [khoảng trắng].!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+//            }
+//        } 
+	}
+    
         
-        ImageIcon icon = new ImageIcon(this.getClass().getResource("/images/online.png"));
-        JLabel label = new JLabel(icon);
-        label.setText(" "+ e);
-        panel.add(label);
-        int len = listActiveTextArea.getDocument().getLength();
-        listActiveTextArea.setCaretPosition(len);
-        listActiveTextArea.add(panel);
-        /*  Append Next Line   */
-        sampleAppend();
-    }
-    listActiveTextArea.setEditable(false);
-}
-private void sampleAppend(){
-    int len = listActiveTextArea.getDocument().getLength();
-    listActiveTextArea.setCaretPosition(len);
-    listActiveTextArea.replaceSelection("\n");
-}
-
-
-	
 }

@@ -89,7 +89,7 @@ public class chatRoom extends JFrame {
 		panel.add(listActiveTextArea);
 		
 		JLabel lblNewLabel = new JLabel("Đang hoạt động");
-		lblNewLabel.setIcon(new ImageIcon(chatRoom.class.getResource("/img/icons8-dot-24.png")));
+		lblNewLabel.setIcon(new ImageIcon(chatRoom.class.getResource("/img/online.png")));
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setFont(new Font("Tahoma", Font.ITALIC, 20));
 		lblNewLabel.setVerticalAlignment(SwingConstants.BOTTOM);

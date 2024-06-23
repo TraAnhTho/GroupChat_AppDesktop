@@ -54,6 +54,7 @@ public class chatLogin extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+
 					chatLogin frame = new chatLogin();
 					frame.setVisible(true);
 				} catch (Exception e) {
